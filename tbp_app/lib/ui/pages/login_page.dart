@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tbp_app/logic/user_service.dart';
 import 'package:tbp_app/ui/app_navigation.dart';
+import 'package:tbp_app/ui/dialogs.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,18 +11,65 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var tcUsername = TextEditingController();
+  var tcPassword = TextEditingController();
+
+  void login() async {
+    var userService = UserService();
+
+    var username = tcUsername.text.trim();
+    var password = tcPassword.text.trim();
+
+    bool result = await userService.login(username, password);
+
+    if (result) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+        return const AppNavigation();
+      }));
+    } else {
+      Dialogs.showShortSnackBar(this, 'Prijava nije uspjela!');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: FilledButton(
-        onPressed: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-            return const AppNavigation();
-          }));
-        },
-        child: const Text('Prijavi se'),
-      )),
+        child: SizedBox(
+          width: 200,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Korisničko ime', style: Theme.of(context).textTheme.titleMedium),
+              TextField(
+                controller: tcUsername,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text('Lozinka', style: Theme.of(context).textTheme.titleMedium),
+              TextField(
+                controller: tcPassword,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  isDense: true,
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 40),
+              Center(
+                child: FilledButton(
+                  onPressed: () => login(),
+                  child: const Text('Prijavi se'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
