@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tbp_app/logic/user_service.dart';
 import 'package:tbp_app/models/user.dart';
 import 'package:tbp_app/ui/pages/login_page.dart';
 
@@ -11,6 +12,14 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   User user = User.current!;
+
+  void logout() {
+    var userService = UserService();
+    userService.logout();
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+      return const LoginPage();
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +37,7 @@ class _UserPageState extends State<UserPage> {
           Text(user.contact, style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 20),
           FilledButton(
-            onPressed: () {
-              User.current = null;
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-                return const LoginPage();
-              }));
-            },
+            onPressed: () => logout(),
             child: const Text('Odjavi se'),
           ),
         ],

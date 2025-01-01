@@ -66,4 +66,10 @@ class UserService {
 
     await login(ipAddress, username, password);
   }
+
+  Future<void> logout() async {
+    User.current = null;
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }
