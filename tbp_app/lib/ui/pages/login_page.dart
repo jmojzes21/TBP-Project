@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tbp_app/logic/database_connection.dart';
 import 'package:tbp_app/logic/user_service.dart';
 import 'package:tbp_app/models/exceptions.dart';
 import 'package:tbp_app/ui/app_navigation.dart';
@@ -17,17 +16,32 @@ class _LoginPageState extends State<LoginPage> {
   var tcUsername = TextEditingController();
   var tcPassword = TextEditingController();
 
-  void login() async {
-    var ipAddress = tcIpAddress.text.trim();
-    DatabaseConnection.ipAddress = ipAddress;
+  @override
+  void initState() {
+    super.initState();
+    autologin();
+  }
 
+  void autologin() async {
+    var userService = UserService();
+    try {
+      await userService.autologin();
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+        return const AppNavigation();
+      }));
+    } catch (_) {}
+  }
+
+  void login() async {
     var userService = UserService();
 
+    var ipAddress = tcIpAddress.text.trim();
     var username = tcUsername.text.trim();
     var password = tcPassword.text.trim();
 
     try {
-      await userService.login(username, password);
+      await userService.login(ipAddress, username, password);
       if (!mounted) return;
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
         return const AppNavigation();

@@ -1,12 +1,15 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tbp_app/logic/database_connection.dart';
 import 'package:tbp_app/models/exceptions.dart';
 import 'package:tbp_app/models/user.dart';
 
 class UserService {
-  Future<void> login(String username, String password) async {
+  Future<void> login(String ipAddress, String username, String password) async {
+    DatabaseConnection.ipAddress = ipAddress;
+
     var db = DatabaseConnection();
     await db.open();
 
@@ -35,6 +38,11 @@ class UserService {
       throw AppException('Pogreška u prijavi.');
     }
 
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString('ipAddress', DatabaseConnection.ipAddress);
+    await prefs.setString('username', username);
+    await prefs.setString('password', password);
+
     User.current = User(
       id: data['id'],
       username: data['username'],
@@ -43,5 +51,19 @@ class UserService {
       email: data['email'],
       contact: data['contact'],
     );
+  }
+
+  Future<void> autologin() async {
+    var prefs = await SharedPreferences.getInstance();
+
+    var ipAddress = prefs.getString('ipAddress');
+    var username = prefs.getString('username');
+    var password = prefs.getString('password');
+
+    if (ipAddress == null || username == null || password == null) {
+      throw Exception();
+    }
+
+    await login(ipAddress, username, password);
   }
 }
