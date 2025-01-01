@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:tbp_app/logic/database_connection.dart';
+import 'package:tbp_app/models/exceptions.dart';
 import 'package:tbp_app/models/user.dart';
 
 class UserService {
-  Future<bool> login(String username, String password) async {
+  Future<void> login(String username, String password) async {
     var db = DatabaseConnection();
     await db.open();
 
@@ -17,7 +18,7 @@ class UserService {
     await db.close();
 
     if (result.isEmpty) {
-      return false;
+      throw AppException('Pogreška u prijavi.');
     }
 
     var data = result.first;
@@ -31,7 +32,7 @@ class UserService {
     String passwordHash = base64Encode(digest.bytes);
 
     if (passwordHash != expectedHash) {
-      return false;
+      throw AppException('Pogreška u prijavi.');
     }
 
     User.current = User(
@@ -42,7 +43,5 @@ class UserService {
       email: data['email'],
       contact: data['contact'],
     );
-
-    return true;
   }
 }

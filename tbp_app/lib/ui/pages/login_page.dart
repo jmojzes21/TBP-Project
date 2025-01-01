@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tbp_app/logic/database_connection.dart';
 import 'package:tbp_app/logic/user_service.dart';
+import 'package:tbp_app/models/exceptions.dart';
 import 'package:tbp_app/ui/app_navigation.dart';
 import 'package:tbp_app/ui/dialogs.dart';
 
@@ -25,14 +26,15 @@ class _LoginPageState extends State<LoginPage> {
     var username = tcUsername.text.trim();
     var password = tcPassword.text.trim();
 
-    bool result = await userService.login(username, password);
-
-    if (result) {
+    try {
+      await userService.login(username, password);
+      if (!mounted) return;
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
         return const AppNavigation();
       }));
-    } else {
-      Dialogs.showShortSnackBar(this, 'Prijava nije uspjela!');
+    } catch (a) {
+      var e = AppException.from(a);
+      Dialogs.showLongSnackBar(this, e.message);
     }
   }
 
