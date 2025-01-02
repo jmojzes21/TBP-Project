@@ -1,14 +1,14 @@
 import 'package:postgres/postgres.dart';
 
 class DatabaseConnection {
-  static String ipAddress = '';
+  static const String _ipAddress = '';
 
   Connection? _connection;
 
   Future<void> open() async {
     _connection = await Connection.open(
       Endpoint(
-        host: ipAddress,
+        host: _ipAddress,
         database: 'TBP-Project',
         username: 'postgres',
         password: 'postgres',
