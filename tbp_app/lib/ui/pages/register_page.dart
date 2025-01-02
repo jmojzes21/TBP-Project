@@ -39,7 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
     var confirmPassword = tcConfirmPassword.text.trim();
 
     try {
-      await userService.register(user, password);
+      await userService.register(user, password, confirmPassword);
       if (!mounted) return;
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
         return const AppNavigation();
