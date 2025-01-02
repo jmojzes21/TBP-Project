@@ -7,9 +7,7 @@ import 'package:tbp_app/models/exceptions.dart';
 import 'package:tbp_app/models/user.dart';
 
 class UserService {
-  Future<void> login(String ipAddress, String username, String password) async {
-    DatabaseConnection.ipAddress = ipAddress;
-
+  Future<void> login(String username, String password) async {
     var db = DatabaseConnection();
     await db.open();
 
@@ -39,7 +37,6 @@ class UserService {
     }
 
     var prefs = await SharedPreferences.getInstance();
-    await prefs.setString('ipAddress', DatabaseConnection.ipAddress);
     await prefs.setString('username', username);
     await prefs.setString('password', password);
 
@@ -56,16 +53,17 @@ class UserService {
   Future<void> autologin() async {
     var prefs = await SharedPreferences.getInstance();
 
-    var ipAddress = prefs.getString('ipAddress');
     var username = prefs.getString('username');
     var password = prefs.getString('password');
 
-    if (ipAddress == null || username == null || password == null) {
+    if (username == null || password == null) {
       throw Exception();
     }
 
-    await login(ipAddress, username, password);
+    await login(username, password);
   }
+
+  Future<void> register(User user, String password) async {}
 
   Future<void> logout() async {
     User.current = null;

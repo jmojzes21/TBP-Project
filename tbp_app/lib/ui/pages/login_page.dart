@@ -3,6 +3,7 @@ import 'package:tbp_app/logic/user_service.dart';
 import 'package:tbp_app/models/exceptions.dart';
 import 'package:tbp_app/ui/app_navigation.dart';
 import 'package:tbp_app/ui/dialogs.dart';
+import 'package:tbp_app/ui/pages/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,7 +13,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var tcIpAddress = TextEditingController();
   var tcUsername = TextEditingController();
   var tcPassword = TextEditingController();
 
@@ -36,12 +36,11 @@ class _LoginPageState extends State<LoginPage> {
   void login() async {
     var userService = UserService();
 
-    var ipAddress = tcIpAddress.text.trim();
     var username = tcUsername.text.trim();
     var password = tcPassword.text.trim();
 
     try {
-      await userService.login(ipAddress, username, password);
+      await userService.login(username, password);
       if (!mounted) return;
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
         return const AppNavigation();
@@ -52,9 +51,18 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void register() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return const RegisterPage();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Prijava'),
+      ),
       body: Center(
         child: SizedBox(
           width: 200,
@@ -62,15 +70,6 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('IP adresa', style: Theme.of(context).textTheme.titleMedium),
-              TextField(
-                controller: tcIpAddress,
-                decoration: const InputDecoration(
-                  isDense: true,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20),
               Text('Korisničko ime', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcUsername,
@@ -96,6 +95,13 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text('Prijavi se'),
                 ),
               ),
+              const SizedBox(height: 20),
+              Center(
+                child: FilledButton(
+                  onPressed: () => register(),
+                  child: const Text('Registracija'),
+                ),
+              ),
             ],
           ),
         ),
@@ -105,7 +111,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    tcIpAddress.dispose();
     tcUsername.dispose();
     tcPassword.dispose();
     super.dispose();
