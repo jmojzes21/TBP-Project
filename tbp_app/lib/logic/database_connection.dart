@@ -1,7 +1,7 @@
 import 'package:postgres/postgres.dart';
 
 class DatabaseConnection {
-  static const String _ipAddress = '';
+  static const String _ipAddress = 'localhost';
 
   Connection? _connection;
 
