@@ -1,3 +1,5 @@
+import 'package:postgres/postgres.dart';
+
 class AppException implements Exception {
   final String message;
 
@@ -9,6 +11,8 @@ class AppException implements Exception {
   factory AppException.from(Object e) {
     if (e is AppException) {
       return e;
+    } else if (e is PgException) {
+      return AppException(e.message);
     } else if (e is Exception) {
       return AppException(e.toString());
     } else if (e is Error) {
