@@ -70,21 +70,21 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Email', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcEmail,
                 decoration: const InputDecoration(
                   isDense: true,
+                  label: Text('Email'),
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20),
-              Text('Lozinka', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcPassword,
                 obscureText: true,
                 decoration: const InputDecoration(
                   isDense: true,
+                  label: Text('Lozinka'),
                   border: OutlineInputBorder(),
                 ),
               ),

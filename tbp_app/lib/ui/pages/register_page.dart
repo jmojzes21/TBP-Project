@@ -58,58 +58,58 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Email', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcEmail,
                 decoration: const InputDecoration(
                   isDense: true,
+                  label: Text('Email'),
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20),
-              Text('Ime', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcFirstName,
                 decoration: const InputDecoration(
                   isDense: true,
+                  label: Text('Ime'),
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20),
-              Text('Prezime', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcLastName,
                 decoration: const InputDecoration(
                   isDense: true,
+                  label: Text('Prezime'),
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20),
-              Text('Kontakt', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcContact,
                 decoration: const InputDecoration(
                   isDense: true,
+                  label: Text('Kontakt'),
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20),
-              Text('Lozinka', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcPassword,
                 obscureText: true,
                 decoration: const InputDecoration(
                   isDense: true,
+                  label: Text('Lozinka'),
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20),
-              Text('Potvrda lozinke', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcConfirmPassword,
                 obscureText: true,
                 decoration: const InputDecoration(
                   isDense: true,
+                  label: Text('Potvrda lozinke'),
                   border: OutlineInputBorder(),
                 ),
               ),
