@@ -44,7 +44,7 @@ class _AppNavigationState extends State<AppNavigation> {
           ),
           NavigationDestination(
             icon: FaIcon(FontAwesomeIcons.weightScale),
-            label: 'Težina',
+            label: 'Indikatori',
           ),
           NavigationDestination(
             icon: FaIcon(FontAwesomeIcons.solidChartBar),

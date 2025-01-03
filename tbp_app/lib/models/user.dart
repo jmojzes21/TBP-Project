@@ -4,6 +4,7 @@ class User {
   String firstName;
   String lastName;
   String contact;
+  String role;
 
   User({
     required this.id,
@@ -11,6 +12,7 @@ class User {
     required this.firstName,
     required this.lastName,
     required this.contact,
+    required this.role,
   });
 
   static User? current;

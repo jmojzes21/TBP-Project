@@ -13,7 +13,7 @@ class UserService {
     await db.open();
 
     var result = await db.execute(
-      'SELECT * FROM "users" WHERE "email"=@email',
+      'SELECT * FROM allUsers WHERE "email"=@email',
       {'email': email},
     );
 
@@ -47,6 +47,7 @@ class UserService {
       firstName: data['firstName'],
       lastName: data['lastName'],
       contact: data['contact'],
+      role: data['role'],
     );
   }
 
@@ -97,7 +98,7 @@ class UserService {
     await db.open();
 
     await db.execute(
-      'SELECT registerUser(@email, @firstName, @lastName, @contact, @password, @salt, @role);',
+      'SELECT registerUser(@email, @firstName, @lastName, @contact, @password, @salt);',
       {
         'email': user.email,
         'firstName': user.firstName,
@@ -105,7 +106,6 @@ class UserService {
         'contact': user.contact,
         'password': passwordHash,
         'salt': saltText,
-        'role': 'normal',
       },
     );
 

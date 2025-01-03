@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tbp_app/logic/user_service.dart';
 import 'package:tbp_app/models/exceptions.dart';
 import 'package:tbp_app/models/user.dart';
-import 'package:tbp_app/ui/app_navigation.dart';
 import 'package:tbp_app/ui/dialogs.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -30,6 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
       firstName: tcFirstName.text.trim(),
       lastName: tcLastName.text.trim(),
       contact: tcContact.text.trim(),
+      role: '',
     );
 
     var password = tcPassword.text.trim();

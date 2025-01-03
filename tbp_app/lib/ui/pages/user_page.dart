@@ -36,6 +36,9 @@ class _UserPageState extends State<UserPage> {
           Text('Kontakt', style: Theme.of(context).textTheme.titleMedium),
           Text(user.contact, style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 20),
+          Text('Uloga', style: Theme.of(context).textTheme.titleMedium),
+          Text(user.role, style: Theme.of(context).textTheme.bodyMedium),
+          const SizedBox(height: 20),
           FilledButton(
             onPressed: () => logout(),
             child: const Text('Odjavi se'),
