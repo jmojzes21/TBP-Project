@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var tcUsername = TextEditingController();
+  var tcEmail = TextEditingController();
   var tcPassword = TextEditingController();
 
   @override
@@ -36,11 +36,11 @@ class _LoginPageState extends State<LoginPage> {
   void login() async {
     var userService = UserService();
 
-    var username = tcUsername.text.trim();
+    var email = tcEmail.text.trim();
     var password = tcPassword.text.trim();
 
     try {
-      await userService.login(username, password);
+      await userService.login(email, password);
       if (!mounted) return;
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
         return const AppNavigation();
@@ -70,9 +70,9 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Korisničko ime', style: Theme.of(context).textTheme.titleMedium),
+              Text('Email', style: Theme.of(context).textTheme.titleMedium),
               TextField(
-                controller: tcUsername,
+                controller: tcEmail,
                 decoration: const InputDecoration(
                   isDense: true,
                   border: OutlineInputBorder(),
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    tcUsername.dispose();
+    tcEmail.dispose();
     tcPassword.dispose();
     super.dispose();
   }

@@ -8,13 +8,13 @@ import 'package:tbp_app/models/exceptions.dart';
 import 'package:tbp_app/models/user.dart';
 
 class UserService {
-  Future<void> login(String username, String password) async {
+  Future<void> login(String email, String password) async {
     var db = DatabaseConnection();
     await db.open();
 
     var result = await db.execute(
-      'SELECT * FROM "users" WHERE "username"=@username',
-      {'username': username},
+      'SELECT * FROM "users" WHERE "email"=@email',
+      {'email': email},
     );
 
     await db.close();
@@ -38,15 +38,14 @@ class UserService {
     }
 
     var prefs = await SharedPreferences.getInstance();
-    await prefs.setString('username', username);
+    await prefs.setString('email', email);
     await prefs.setString('password', password);
 
     User.current = User(
       id: data['id'],
-      username: data['username'],
+      email: data['email'],
       firstName: data['firstName'],
       lastName: data['lastName'],
-      email: data['email'],
       contact: data['contact'],
     );
   }
@@ -54,19 +53,19 @@ class UserService {
   Future<void> autologin() async {
     var prefs = await SharedPreferences.getInstance();
 
-    var username = prefs.getString('username');
+    var email = prefs.getString('email');
     var password = prefs.getString('password');
 
-    if (username == null || password == null) {
+    if (email == null || password == null) {
       throw Exception();
     }
 
-    await login(username, password);
+    await login(email, password);
   }
 
   Future<void> register(User user, String password, String confirmPassword) async {
-    if (user.username.isEmpty) {
-      throw AppException('Unesite korisničko ime.');
+    if (user.email.isEmpty) {
+      throw AppException('Unesite email adresu.');
     }
 
     if (user.firstName.isEmpty || user.lastName.isEmpty) {
@@ -98,12 +97,11 @@ class UserService {
     await db.open();
 
     await db.execute(
-      'SELECT registerUser(@username, @firstName, @lastName, @email, @contact, @password, @salt, @role);',
+      'SELECT registerUser(@email, @firstName, @lastName, @contact, @password, @salt, @role);',
       {
-        'username': user.username,
+        'email': user.email,
         'firstName': user.firstName,
         'lastName': user.lastName,
-        'email': user.email,
         'contact': user.contact,
         'password': passwordHash,
         'salt': saltText,

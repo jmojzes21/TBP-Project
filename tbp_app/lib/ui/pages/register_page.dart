@@ -13,11 +13,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  var tcUsername = TextEditingController();
+  var tcEmail = TextEditingController();
   var tcFirstName = TextEditingController();
   var tcLastName = TextEditingController();
-
-  var tcEmail = TextEditingController();
   var tcContact = TextEditingController();
 
   var tcPassword = TextEditingController();
@@ -28,10 +26,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
     var user = User(
       id: 0,
-      username: tcUsername.text.trim(),
+      email: tcEmail.text.trim(),
       firstName: tcFirstName.text.trim(),
       lastName: tcLastName.text.trim(),
-      email: tcEmail.text.trim(),
       contact: tcContact.text.trim(),
     );
 
@@ -41,9 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       await userService.register(user, password, confirmPassword);
       if (!mounted) return;
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-        return const AppNavigation();
-      }));
+      Navigator.of(context).pop();
     } catch (a) {
       var e = AppException.from(a);
       Dialogs.showLongSnackBar(this, e.message);
@@ -63,9 +58,9 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Korisničko ime', style: Theme.of(context).textTheme.titleMedium),
+              Text('Email', style: Theme.of(context).textTheme.titleMedium),
               TextField(
-                controller: tcUsername,
+                controller: tcEmail,
                 decoration: const InputDecoration(
                   isDense: true,
                   border: OutlineInputBorder(),
@@ -84,15 +79,6 @@ class _RegisterPageState extends State<RegisterPage> {
               Text('Prezime', style: Theme.of(context).textTheme.titleMedium),
               TextField(
                 controller: tcLastName,
-                decoration: const InputDecoration(
-                  isDense: true,
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text('Email', style: Theme.of(context).textTheme.titleMedium),
-              TextField(
-                controller: tcEmail,
                 decoration: const InputDecoration(
                   isDense: true,
                   border: OutlineInputBorder(),
@@ -143,10 +129,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
-    tcUsername.dispose();
+    tcEmail.dispose();
     tcFirstName.dispose();
     tcLastName.dispose();
-    tcEmail.dispose();
     tcContact.dispose();
     tcPassword.dispose();
     tcConfirmPassword.dispose();
