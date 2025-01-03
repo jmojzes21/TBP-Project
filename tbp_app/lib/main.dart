@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tbp_app/ui/pages/login_page.dart';
+import 'package:tbp_app/ui/pages/entry_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -15,7 +15,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         colorSchemeSeed: Colors.blue,
       ),
-      home: const LoginPage(),
+      home: const EntryPage(),
     );
   }
 }
