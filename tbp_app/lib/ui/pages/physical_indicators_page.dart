@@ -53,6 +53,7 @@ class _PhysicalIndicatorsPageState extends State<PhysicalIndicatorsPage> {
         ),
         double.parse(tcHeight.text.trim()),
       );
+      Dialogs.showShortSnackBar(this, 'Uspješno');
       load();
     } catch (a) {
       var e = AppException.from(a);
@@ -71,23 +72,28 @@ class _PhysicalIndicatorsPageState extends State<PhysicalIndicatorsPage> {
             //
             Text('Indikatori', style: Theme.of(context).textTheme.titleLarge),
             ...data.map((e) {
-              return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Datum: ${DateFormats.date.format(e.date)}'),
-                      Text('Težina: ${e.weight.toStringAsFixed(1)} kg'),
-                      Text('BMI: ${e.bmi.toStringAsFixed(1)}'),
-                      Text('Tlak krvi: ${e.bloodPressure} mmHg'),
-                    ],
+              return SizedBox(
+                width: double.infinity,
+                child: Card(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Datum: ${DateFormats.date.format(e.date)}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                        Text('Težina: ${e.weight.toStringAsFixed(1)} kg'),
+                        Text('BMI: ${e.bmi.toStringAsFixed(1)}'),
+                        Text('Tlak krvi: ${e.bloodPressure} mmHg'),
+                      ],
+                    ),
                   ),
                 ),
               );
             }),
             //
+            const SizedBox(height: 20),
             Text('Dodaj', style: Theme.of(context).textTheme.titleLarge),
             Text('Datum', style: Theme.of(context).textTheme.bodyLarge),
             DatePicker(
