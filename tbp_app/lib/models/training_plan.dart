@@ -9,6 +9,9 @@ class TrainingPlan {
   double targetWeight;
   double targetBmi;
 
+  double? actualWeight;
+  double? actualBmi;
+
   TrainingPlan({
     required this.id,
     required this.userId,
@@ -17,5 +20,7 @@ class TrainingPlan {
     required this.endDate,
     required this.targetWeight,
     required this.targetBmi,
+    this.actualWeight,
+    this.actualBmi,
   });
 }
