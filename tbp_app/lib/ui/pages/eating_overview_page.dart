@@ -93,7 +93,10 @@ class _EatingOverviewPageState extends State<EatingOverviewPage> {
             }),
             //
             const SizedBox(height: 20),
+
             Text('Dodaj', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 20),
+
             Text('Datum', style: Theme.of(context).textTheme.bodyLarge),
             DateTimePicker(
               value: date,

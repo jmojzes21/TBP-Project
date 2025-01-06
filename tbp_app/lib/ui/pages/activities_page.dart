@@ -104,6 +104,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
 
             Text('Dodaj', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 20),
+
             TextField(
               controller: tcName,
               decoration: const InputDecoration(

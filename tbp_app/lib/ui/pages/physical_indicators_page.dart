@@ -94,7 +94,10 @@ class _PhysicalIndicatorsPageState extends State<PhysicalIndicatorsPage> {
             }),
             //
             const SizedBox(height: 20),
+
             Text('Dodaj', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 20),
+
             Text('Datum', style: Theme.of(context).textTheme.bodyLarge),
             DatePicker(
               value: date,
