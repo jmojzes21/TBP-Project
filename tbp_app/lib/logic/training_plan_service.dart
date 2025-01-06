@@ -8,7 +8,7 @@ class TrainingPlanService {
     await db.open();
 
     var results = await db.execute(
-      'SELECT * FROM "trainingPlans" WHERE "userId" = @userid',
+      'SELECT * FROM allUserTrainingPlans(@userid)',
       {'userid': userId},
     );
 
@@ -33,6 +33,8 @@ class TrainingPlanService {
         endDate: endDate,
         targetWeight: e['targetWeight'],
         targetBmi: e['targetBMI'],
+        actualWeight: e['weight'],
+        actualBmi: e['BMI'],
       );
     }).toList();
   }

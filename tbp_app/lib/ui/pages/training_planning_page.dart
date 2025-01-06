@@ -87,6 +87,8 @@ class _TrainingPlanningPageState extends State<TrainingPlanningPage> {
                         Text('Završetak: ${DateFormats.date.format(e.endDate)}'),
                         Text('Ciljana težina: ${e.targetWeight.toStringAsFixed(1)} kg'),
                         Text('Ciljani BMI: ${e.targetBmi.toStringAsFixed(1)}'),
+                        if (e.actualWeight != null) Text('Stvarna težina: ${e.actualWeight?.toStringAsFixed(1)} kg'),
+                        if (e.actualBmi != null) Text('Stvarni BMI: ${e.actualBmi?.toStringAsFixed(1)}'),
                       ],
                     ),
                   ),
