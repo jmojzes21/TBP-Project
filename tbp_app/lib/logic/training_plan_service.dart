@@ -16,13 +16,21 @@ class TrainingPlanService {
 
     return results.map((e) {
       DateRange duration = e['duration'];
+      DateTime startDate = duration.lower!;
+      DateTime endDate;
+
+      if (duration.bounds.upper == Bound.exclusive) {
+        endDate = duration.upper!.subtract(const Duration(days: 1));
+      } else {
+        endDate = duration.upper!;
+      }
 
       return TrainingPlan(
         id: e['id'],
         userId: e['userId'],
         name: e['name'],
-        startDate: duration.lower!,
-        endDate: duration.upper!,
+        startDate: startDate,
+        endDate: endDate,
         targetWeight: e['targetWeight'],
         targetBmi: e['targetBMI'],
       );
@@ -36,14 +44,12 @@ class TrainingPlanService {
     var sql = 'INSERT INTO "trainingPlans" ("userId", "name", "duration", "targetWeight", "targetBMI")';
     sql += " VALUES (@userId, @name, @duration, @targetWeight, @targetBMI)";
 
+    var duration = '[${trainingPlan.startDate.toIso8601String()}, ${trainingPlan.endDate.toIso8601String()}]';
+
     await db.execute(sql, {
       'userId': trainingPlan.userId,
       'name': trainingPlan.name,
-      'duration': DateRange(
-        trainingPlan.startDate,
-        trainingPlan.endDate,
-        Bounds(Bound.inclusive, Bound.inclusive),
-      ),
+      'duration': duration,
       'targetWeight': trainingPlan.targetWeight,
       'targetBMI': trainingPlan.targetBmi,
     });
