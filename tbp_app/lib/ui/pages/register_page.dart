@@ -60,6 +60,8 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               TextField(
                 controller: tcEmail,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   isDense: true,
                   label: Text('Email'),
@@ -69,6 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 20),
               TextField(
                 controller: tcFirstName,
+                textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   isDense: true,
                   label: Text('Ime'),
@@ -78,6 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 20),
               TextField(
                 controller: tcLastName,
+                textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   isDense: true,
                   label: Text('Prezime'),
@@ -87,6 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 20),
               TextField(
                 controller: tcContact,
+                textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   isDense: true,
                   label: Text('Kontakt'),
@@ -97,6 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextField(
                 controller: tcPassword,
                 obscureText: true,
+                textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   isDense: true,
                   label: Text('Lozinka'),
@@ -107,6 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextField(
                 controller: tcConfirmPassword,
                 obscureText: true,
+                textInputAction: TextInputAction.done,
                 decoration: const InputDecoration(
                   isDense: true,
                   label: Text('Potvrda lozinke'),

@@ -108,6 +108,7 @@ class _PhysicalIndicatorsPageState extends State<PhysicalIndicatorsPage> {
             const SizedBox(height: 20),
             TextField(
               controller: tcWeight,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 isDense: true,
                 label: Text('Težina [kg]'),
@@ -117,6 +118,7 @@ class _PhysicalIndicatorsPageState extends State<PhysicalIndicatorsPage> {
             const SizedBox(height: 20),
             TextField(
               controller: tcHeight,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 isDense: true,
                 label: Text('Visina [cm]'),

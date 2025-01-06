@@ -72,6 +72,8 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextField(
                 controller: tcEmail,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
                 decoration: const InputDecoration(
                   isDense: true,
                   label: Text('Email'),

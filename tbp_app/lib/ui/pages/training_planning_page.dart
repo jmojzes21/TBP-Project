@@ -131,6 +131,7 @@ class _TrainingPlanningPageState extends State<TrainingPlanningPage> {
 
             TextField(
               controller: tcTargetWeight,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 isDense: true,
                 label: Text('Ciljana težina'),
@@ -140,6 +141,7 @@ class _TrainingPlanningPageState extends State<TrainingPlanningPage> {
             const SizedBox(height: 20),
             TextField(
               controller: tcTargetBmi,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 isDense: true,
                 label: Text('Ciljani BMI'),

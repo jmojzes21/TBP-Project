@@ -107,6 +107,7 @@ class _EatingOverviewPageState extends State<EatingOverviewPage> {
             const SizedBox(height: 20),
             TextField(
               controller: tcCalories,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 isDense: true,
                 label: Text('Kalorije [kcal]'),
