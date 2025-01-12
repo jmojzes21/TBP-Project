@@ -26,7 +26,7 @@ class ActivitiesService {
     await db.open();
 
     var results = await db.execute(
-      'SELECT * FROM "activities" WHERE "userId" = @userid',
+      'SELECT * FROM "activities" WHERE "userId" = @userid ORDER BY "data"->\'start\' ASC',
       {'userid': userId},
     );
 

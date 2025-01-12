@@ -7,7 +7,7 @@ class PhysicalIndicatorsService {
     await db.open();
 
     var results = await db.execute(
-      'SELECT * FROM "physicalIndicatorsHistory" WHERE "userId" = @userid',
+      'SELECT * FROM "physicalIndicatorsHistory" WHERE "userId" = @userid ORDER BY "date" ASC',
       {'userid': userId},
     );
 

@@ -24,7 +24,7 @@ class EatingHistoryService {
     await db.open();
 
     var results = await db.execute(
-      'SELECT * FROM allEatingHistory WHERE "userId" = @userid',
+      'SELECT * FROM allEatingHistory WHERE "userId" = @userid ORDER BY "dateTime" ASC',
       {'userid': userId},
     );
 

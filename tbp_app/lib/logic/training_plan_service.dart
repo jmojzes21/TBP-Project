@@ -8,7 +8,7 @@ class TrainingPlanService {
     await db.open();
 
     var results = await db.execute(
-      'SELECT * FROM allUserTrainingPlans(@userid)',
+      'SELECT * FROM allUserTrainingPlans(@userid) ORDER BY LOWER("duration") ASC',
       {'userid': userId},
     );
 
