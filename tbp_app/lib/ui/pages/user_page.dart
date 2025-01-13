@@ -21,6 +21,16 @@ class _UserPageState extends State<UserPage> {
     }));
   }
 
+  void exportAllData() async {
+    var userService = UserService();
+    String data = await userService.exportAllData(user);
+
+    if (!mounted) return;
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return _UserData(data);
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,6 +49,11 @@ class _UserPageState extends State<UserPage> {
           Text('Uloga', style: Theme.of(context).textTheme.titleMedium),
           Text(user.role, style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 20),
+          TextButton(
+            onPressed: () => exportAllData(),
+            child: const Text('Izvoz svih podataka'),
+          ),
+          const SizedBox(height: 20),
           FilledButton(
             onPressed: () => logout(),
             child: const Text('Odjavi se'),
@@ -46,5 +61,51 @@ class _UserPageState extends State<UserPage> {
         ],
       ),
     );
+  }
+}
+
+class _UserData extends StatefulWidget {
+  final String data;
+
+  const _UserData(this.data);
+
+  @override
+  State<_UserData> createState() => _UserDataState();
+}
+
+class _UserDataState extends State<_UserData> {
+  late TextEditingController tcData;
+
+  @override
+  void initState() {
+    super.initState();
+    tcData = TextEditingController(text: widget.data);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Podaci'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: TextField(
+          controller: tcData,
+          maxLines: null,
+          readOnly: true,
+          decoration: const InputDecoration(
+            isDense: true,
+            border: OutlineInputBorder(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    tcData.dispose();
+    super.dispose();
   }
 }

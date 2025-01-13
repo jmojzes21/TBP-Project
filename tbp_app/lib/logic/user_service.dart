@@ -117,4 +117,22 @@ class UserService {
     var prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
+
+  Future<String> exportAllData(User user) async {
+    var db = DatabaseConnection();
+    await db.open();
+
+    var result = await db.execute(
+      'SELECT * FROM exportAllUserData(@userId) AS "data"',
+      {'userId': user.id},
+    );
+
+    await db.close();
+
+    var data = result.first['data'];
+    var jsonEncoder = const JsonEncoder.withIndent('  ');
+    var json = jsonEncoder.convert(data);
+
+    return json;
+  }
 }
