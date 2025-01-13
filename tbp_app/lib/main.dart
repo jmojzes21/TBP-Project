@@ -11,20 +11,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('hr', 'HR'),
-      ],
-      theme: ThemeData(
-        colorSchemeSeed: Colors.blue,
+    return SafeArea(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('hr', 'HR'),
+        ],
+        theme: ThemeData(
+          colorSchemeSeed: Colors.blue,
+        ),
+        home: const EntryPage(),
       ),
-      home: const EntryPage(),
     );
   }
 }
